@@ -1,0 +1,12 @@
+.button {
+  border-radius: 6px;
+  background-color: #0070f3;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.buttonDanger {
+  background-color: #f33900;
+}

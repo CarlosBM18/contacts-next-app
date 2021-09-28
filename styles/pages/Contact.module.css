@@ -1,0 +1,11 @@
+.content {
+  flex-direction: column;
+}
+
+.buttonContainer {
+  margin-top: 1rem;
+}
+
+.textLinkContainer {
+  margin-top: 1rem;
+}
