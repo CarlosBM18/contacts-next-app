@@ -30,6 +30,21 @@ export interface ContactObject {
   phone_number: string;
 }
 
+export interface ContactHistoryObject {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  state: ContactHistoryStates;
+}
+
+export type ContactHistoryStates = "created" | "updated" | "deleted";
+
 export interface ContactElementProps {
   data: ContactObject;
+}
+
+export interface ContactHistoryElementProps {
+  data: ContactHistoryObject;
 }

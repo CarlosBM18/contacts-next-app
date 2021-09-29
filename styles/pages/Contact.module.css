@@ -9,3 +9,12 @@
 .textLinkContainer {
   margin-top: 1rem;
 }
+
+.textLinksContainers {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 1rem;
+}

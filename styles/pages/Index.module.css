@@ -1,9 +1,17 @@
 .content {
-  flex-direction: column;
-  overflow-x: hidden;
+  max-height: 60vh;
+  overflow-y: scroll;
   padding: 3rem;
   position: relative;
   text-align: center;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+.createContactButtonContainer {
+  min-height: 10vh;
 }
 
 .contactElementContainer {

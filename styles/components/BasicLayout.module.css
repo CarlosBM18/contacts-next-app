@@ -11,8 +11,7 @@
 .content {
   flex: 1;
   min-height: 70vh;
-  overflow-x: auto;
-  min-width: 300px;
+  min-width: 340px;
 }
 
 .main {
@@ -47,4 +46,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.logoutContainer {
+  margin-left: 1rem;
 }

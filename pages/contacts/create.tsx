@@ -5,14 +5,31 @@ import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { TextLink } from "../../components/TextLink";
 import router from "next/router";
+import { useStore } from "../../stores";
 
 export default function CreateContact() {
   const contactId = router.query.id as string;
-
+  const { rootStore } = useStore();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  const onCreateContact = async () => {
+    try {
+      const res = await rootStore.apiStore.createContact(
+        firstName,
+        lastName,
+        email,
+        phoneNumber
+      );
+      rootStore.appStore.getContacts();
+      router.back();
+      console.log({ res });
+    } catch (err) {
+      console.log({ err });
+    }
+  };
 
   return (
     <BasicLayout title="Contact">
@@ -26,7 +43,7 @@ export default function CreateContact() {
           setValue={setPhoneNumber}
         />
         <div className={styles.buttonContainer}>
-          <Button title="Create" type="primary" />
+          <Button title="Create" type="primary" onClick={onCreateContact} />
         </div>
         <div className={styles.textLinkContainer}>
           <TextLink

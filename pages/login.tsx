@@ -5,10 +5,28 @@ import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { TextLink } from "../components/TextLink";
 import router from "next/router";
+import { useStore } from "../stores";
 
 export default function Login() {
+  const { rootStore } = useStore();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const onPressLogin = async () => {
+    setLoading(true);
+    try {
+      const res: any = await rootStore.apiStore.login(email, password);
+      console.log({ res });
+      rootStore.appStore.saveToken(res.data.token, localStorage);
+      if (res?.data?.token.length) {
+        router.replace("/");
+      }
+    } catch (err) {
+      setLoading(false);
+      console.log({ err });
+    }
+  };
 
   return (
     <BasicLayout title="Login">
@@ -16,13 +34,13 @@ export default function Login() {
         <Input label="Email" value={email} setValue={setEmail} />
         <Input label="Password" value={password} setValue={setPassword} />
         <div className={styles.buttonContainer}>
-          <Button
-            title="Login"
-            type="primary"
-            onClick={() => {
-              router.push("/");
-            }}
-          />
+          <Button title="Login" type="primary" onClick={onPressLogin} />
+          {loading && (
+            <>
+              <br />
+              Loading...
+            </>
+          )}
         </div>
         <div className={styles.textLinkContainer}>
           <TextLink
