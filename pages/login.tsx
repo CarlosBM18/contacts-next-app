@@ -31,7 +31,12 @@ export default function Login() {
     <BasicLayout title="Login">
       <div className={styles.content}>
         <Input label="Email" value={email} setValue={setEmail} />
-        <Input label="Password" value={password} setValue={setPassword} />
+        <Input
+          label="Password"
+          value={password}
+          setValue={setPassword}
+          type="password"
+        />
         <div className={styles.buttonContainer}>
           <Button title="Login" type="primary" onClick={onPressLogin} />
           {loading && (
