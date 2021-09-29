@@ -69,6 +69,10 @@ class AppStore {
   get loadingUser() {
     return this.token === null;
   }
+
+  get isLogged() {
+    return !this.loadingUser && this.token?.length;
+  }
 }
 
 export default AppStore;

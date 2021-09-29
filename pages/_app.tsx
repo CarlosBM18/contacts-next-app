@@ -21,21 +21,23 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
 
   // Redirect user to login if not logged
   useEffect(() => {
-    if (!rootStore.appStore.loadingUser && !rootStore.appStore.token?.length) {
+    if (!rootStore.appStore.isLogged) {
       router.replace("/login");
     }
-  }, [rootStore.appStore.loadingUser, rootStore.appStore.token, router]);
+  }, [
+    rootStore.appStore.isLogged,
+    rootStore.appStore.loadingUser,
+    rootStore.appStore.token,
+    router,
+  ]);
 
   // Redirect user if tries to go to auth routes when logged
   useEffect(() => {
-    if (
-      isAuthRoute(router.pathname) &&
-      !rootStore.appStore.loadingUser &&
-      rootStore.appStore.token?.length
-    ) {
+    if (isAuthRoute(router.pathname) && rootStore.appStore.isLogged) {
       router.replace("/");
     }
   }, [
+    rootStore.appStore.isLogged,
     rootStore.appStore.loadingUser,
     rootStore.appStore.token?.length,
     router,
