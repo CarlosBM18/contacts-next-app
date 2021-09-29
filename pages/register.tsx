@@ -16,7 +16,7 @@ export default function Register() {
   const onPressRegister = async () => {
     setLoading(true);
     try {
-      const res: any = await rootStore.apiStore.createUser(email, password);
+      await rootStore.apiStore.createUser(email, password);
       router.replace("/login");
     } catch (err) {
       setLoading(false);

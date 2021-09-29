@@ -17,7 +17,7 @@ export default function CreateContact() {
 
   const onCreateContact = async () => {
     try {
-      const res = await rootStore.apiStore.createContact(
+      await rootStore.apiStore.createContact(
         firstName,
         lastName,
         email,

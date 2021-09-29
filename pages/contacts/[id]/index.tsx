@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BasicLayout } from "../../../components/BasicLayout";
 import styles from "../../../styles/pages/Contact.module.css";
 import { Input } from "../../../components/Input";
@@ -13,14 +13,29 @@ const Contact = observer(() => {
   const contactId = router.query.id as string;
   const { rootStore } = useStore();
   const contact = rootStore.appStore.selectedContact;
-  const [firstName, setFirstName] = useState(contact?.first_name || "");
-  const [lastName, setLastName] = useState(contact?.last_name || "");
-  const [email, setEmail] = useState(contact?.email || "");
-  const [phoneNumber, setPhoneNumber] = useState(contact?.phone_number || "");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  useEffect(() => {
+    if (contact === null && contactId) {
+      rootStore.appStore.getContact(Number(contactId));
+    }
+  }, [contact, contactId, rootStore.appStore]);
+
+  useEffect(() => {
+    if (contact) {
+      setFirstName(contact.first_name);
+      setLastName(contact.last_name);
+      setEmail(contact.email);
+      setPhoneNumber(contact.phone_number);
+    }
+  }, [contact]);
 
   const onUpdate = async () => {
     try {
-      const res = await rootStore.apiStore.updateContact(
+      await rootStore.apiStore.updateContact(
         contactId,
         firstName,
         lastName,
@@ -36,7 +51,7 @@ const Contact = observer(() => {
 
   const onDelete = async () => {
     try {
-      const res = await rootStore.apiStore.deleteContact(contactId);
+      await rootStore.apiStore.deleteContact(contactId);
       await rootStore.appStore.getContacts();
       router.back();
     } catch (err) {

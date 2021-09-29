@@ -30,6 +30,16 @@ class AppStore {
     }
   };
 
+  getContact = async (id: number) => {
+    try {
+      const res: any = await this.rootStore.apiStore.getContact(id);
+      const contact = res.data as ContactObject;
+      this.setSelectedContact(contact);
+    } catch (err) {
+      console.log({ err });
+    }
+  };
+
   getContactHistory = async (id: number) => {
     try {
       const res: any = await this.rootStore.apiStore.getContactHistory(id);

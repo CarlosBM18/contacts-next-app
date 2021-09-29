@@ -31,6 +31,10 @@ class ApiStore {
     return await axios.get(`${this.baseUrl}/contacts`, this.authHeader);
   };
 
+  getContact = async (id: number) => {
+    return await axios.get(`${this.baseUrl}/contacts/${id}`, this.authHeader);
+  };
+
   getContactHistory = async (id: number) => {
     return await axios.get(
       `${this.baseUrl}/contacts_history/${id}`,
