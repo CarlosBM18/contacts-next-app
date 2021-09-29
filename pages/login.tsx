@@ -17,15 +17,14 @@ export default function Login() {
     setLoading(true);
     try {
       const res: any = await rootStore.apiStore.login(email, password);
-      console.log({ res });
       rootStore.appStore.saveToken(res.data.token, localStorage);
       if (res?.data?.token.length) {
         router.replace("/");
       }
     } catch (err) {
-      setLoading(false);
       console.log({ err });
     }
+    setLoading(false);
   };
 
   return (

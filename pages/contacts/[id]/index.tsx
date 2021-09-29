@@ -29,7 +29,6 @@ const Contact = observer(() => {
       );
       await rootStore.appStore.getContacts();
       router.back();
-      console.log({ res });
     } catch (err) {
       console.log({ err });
     }
@@ -40,7 +39,6 @@ const Contact = observer(() => {
       const res = await rootStore.apiStore.deleteContact(contactId);
       await rootStore.appStore.getContacts();
       router.back();
-      console.log({ res });
     } catch (err) {
       console.log({ err });
     }

@@ -17,7 +17,6 @@ const History = observer(() => {
     const getInfo = () => {
       const id = rootStore.appStore.selectedContact?.id;
       if (id) {
-        console.log("in", id);
         !rootStore.appStore.loadingUser &&
           rootStore.appStore.getContactHistory(id);
       }

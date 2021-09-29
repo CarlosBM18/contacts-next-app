@@ -25,7 +25,6 @@ export default function CreateContact() {
       );
       rootStore.appStore.getContacts();
       router.back();
-      console.log({ res });
     } catch (err) {
       console.log({ err });
     }

@@ -18,7 +18,6 @@ export default function Register() {
     try {
       const res: any = await rootStore.apiStore.createUser(email, password);
       router.replace("/login");
-      console.log({ res });
     } catch (err) {
       setLoading(false);
       console.log({ err });
