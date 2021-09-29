@@ -8,7 +8,7 @@ import router from "next/router";
 import { useStore } from "../../stores";
 
 export default function CreateContact() {
-  const contactId = router.query.id as string;
+  // const contactId = router.query.id as string;
   const { rootStore } = useStore();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
