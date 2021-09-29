@@ -21,7 +21,7 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
 
   // Redirect user to login if not logged
   useEffect(() => {
-    if (!rootStore.appStore.isLogged) {
+    if (!rootStore.appStore.isLogged && !isAuthRoute(router.pathname)) {
       router.replace("/login");
     }
   }, [
