@@ -37,7 +37,7 @@ class ApiStore {
 
   getContactHistory = async (id: number) => {
     return await axios.get(
-      `${this.baseUrl}/contacts_history/${id}`,
+      `${this.baseUrl}/contact_histories/${id}`,
       this.authHeader
     );
   };

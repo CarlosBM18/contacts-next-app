@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import router from "next/router";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { BasicLayout } from "../../../components/BasicLayout";
 import { TextLink } from "../../../components/TextLink";
@@ -11,18 +11,20 @@ import { useStore } from "../../../stores";
 import styles from "../../../styles/pages/History.module.css";
 
 const History = observer(() => {
+  const router = useRouter();
   const { rootStore } = useStore();
+  const contactId = Number(router.query.id);
 
   useEffect(() => {
     const getInfo = () => {
-      const id = rootStore.appStore.selectedContact?.id;
+      const id = rootStore.appStore.selectedContact?.id || contactId;
       if (id) {
         !rootStore.appStore.loadingUser &&
           rootStore.appStore.getContactHistory(id);
       }
     };
     getInfo();
-  }, [rootStore.appStore, rootStore.appStore.loadingUser]);
+  }, [contactId, rootStore.appStore, rootStore.appStore.loadingUser]);
 
   const getStyleFromState = (state: ContactHistoryStates) => {
     switch (state) {
@@ -30,8 +32,6 @@ const History = observer(() => {
         return styles.stateCreated;
       case "updated":
         return styles.stateUpdated;
-      case "deleted":
-        return styles.stateDeleted;
     }
   };
 

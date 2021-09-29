@@ -40,7 +40,7 @@ export interface ContactHistoryObject {
   state: ContactHistoryStates;
 }
 
-export type ContactHistoryStates = "created" | "updated" | "deleted";
+export type ContactHistoryStates = "created" | "updated";
 
 export interface ContactElementProps {
   data: ContactObject;

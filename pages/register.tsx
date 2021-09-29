@@ -28,7 +28,12 @@ export default function Register() {
     <BasicLayout title="Register">
       <div className={styles.content}>
         <Input label="Email" value={email} setValue={setEmail} />
-        <Input label="Password" value={password} setValue={setPassword} />
+        <Input
+          label="Password"
+          value={password}
+          setValue={setPassword}
+          type="password"
+        />
         <div className={styles.buttonContainer}>
           <Button title="Register" type="primary" onClick={onPressRegister} />
           {loading && (
