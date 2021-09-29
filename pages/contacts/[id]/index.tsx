@@ -4,11 +4,12 @@ import styles from "../../../styles/pages/Contact.module.css";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
 import { TextLink } from "../../../components/TextLink";
-import router from "next/router";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../stores";
+import { useRouter } from "next/router";
 
 const Contact = observer(() => {
+  const router = useRouter();
   const contactId = router.query.id as string;
   const { rootStore } = useStore();
   const contact = rootStore.appStore.selectedContact;
