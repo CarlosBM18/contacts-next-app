@@ -25,7 +25,7 @@ export default function CreateContact() {
         phoneNumber
       );
       rootStore.appStore.getContacts();
-      rootStore.alertsStore.createSuccessAlert("User created correctly");
+      rootStore.alertsStore.createSuccessAlert("Contact created correctly");
       router.back();
     } catch (err: any) {
       rootStore.alertsStore.handleErrorResponse(err.response);

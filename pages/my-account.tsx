@@ -18,7 +18,7 @@ export default function MyAccount() {
       const userId = rootStore.appStore.user?.id;
       if (userId) {
         await rootStore.apiStore.deleteUser(userId);
-        rootStore.alertsStore.createSuccessAlert("Deleted correctly");
+        rootStore.alertsStore.createSuccessAlert("User deleted correctly");
         rootStore.appStore.logout();
       }
     } catch (err: any) {

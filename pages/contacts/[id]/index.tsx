@@ -49,7 +49,7 @@ const Contact = observer(() => {
         );
         await rootStore.appStore.getContacts();
         await rootStore.appStore.getContact(Number(contactId));
-        rootStore.alertsStore.createSuccessAlert("Updated correctly");
+        rootStore.alertsStore.createSuccessAlert("Contact updated correctly");
       } catch (err: any) {
         rootStore.alertsStore.handleErrorResponse(err.response);
       }
@@ -62,7 +62,7 @@ const Contact = observer(() => {
     try {
       await rootStore.apiStore.removeContact(contactId);
       await rootStore.appStore.getContacts();
-      rootStore.alertsStore.createSuccessAlert("Deleted correctly");
+      rootStore.alertsStore.createSuccessAlert("Contact deleted correctly");
       router.back();
     } catch (err: any) {
       rootStore.alertsStore.handleErrorResponse(err.response);
