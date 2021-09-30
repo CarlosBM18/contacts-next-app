@@ -6,6 +6,7 @@ import { Button } from "../components/Button";
 import { TextLink } from "../components/TextLink";
 import router from "next/router";
 import { useStore } from "../stores";
+import { UserObject } from "../libs/types";
 
 export default function Login() {
   const { rootStore } = useStore();
@@ -19,6 +20,7 @@ export default function Login() {
     setLoading(true);
     try {
       const res: any = await rootStore.apiStore.login(email, password);
+      rootStore.appStore.saveUserInfo(res.data.user as UserObject);
       rootStore.appStore.saveToken(res.data.token, localStorage);
       rootStore.alertsStore.createSuccessAlert("Logged correctly");
     } catch (err: any) {

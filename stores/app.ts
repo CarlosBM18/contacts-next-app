@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import router from "next/router";
 
 import { RootStore } from ".";
-import { ContactHistoryObject, ContactObject } from "../libs/types";
+import { ContactHistoryObject, ContactObject, UserObject } from "../libs/types";
 
 class AppStore {
   rootStore;
@@ -10,6 +10,7 @@ class AppStore {
   contacts: ContactObject[] = [];
   selectedContact: ContactObject | null = null;
   contactHistory: ContactHistoryObject[] = [];
+  user: UserObject | null = null;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
@@ -21,13 +22,17 @@ class AppStore {
     this.setToken(token);
   };
 
+  saveUserInfo = (user: UserObject) => {
+    this.user = user;
+  };
+
   getContacts = async () => {
     try {
       const res: any = await this.rootStore.apiStore.getContacts();
       const contacts = res.data as ContactObject[];
       this.setContacts(contacts);
     } catch (err) {
-      console.log({ err });
+      this.rootStore.alertsStore.createErrorAlert("Can't show contacts");
     }
   };
 
@@ -39,7 +44,6 @@ class AppStore {
     } catch (err) {
       this.rootStore.alertsStore.createErrorAlert("Can't show that contact");
       router.replace("/");
-      console.log({ err });
     }
   };
 
@@ -51,7 +55,6 @@ class AppStore {
     } catch (err) {
       this.rootStore.alertsStore.createErrorAlert("Can't show that histroy");
       router.replace("/");
-      console.log({ err });
     }
   };
 
@@ -76,7 +79,7 @@ class AppStore {
   }
 
   get isLogged() {
-    return !this.loadingUser && this.token?.length;
+    return !this.loadingUser && !!this.token?.length;
   }
 
   logout = () => {

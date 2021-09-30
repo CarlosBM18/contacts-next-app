@@ -84,6 +84,10 @@ class ApiStore {
     );
   };
 
+  deleteUser = async (id: number) => {
+    return await axios.delete(`${this.baseUrl}/users/${id}`, this.authHeader);
+  };
+
   get authHeader() {
     return {
       headers: {

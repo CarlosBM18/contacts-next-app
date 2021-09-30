@@ -63,3 +63,7 @@ export interface AlertObject {
 export type AlertElementProps = {
   data: AlertObject;
 };
+
+export interface UserObject {
+  id: number;
+}

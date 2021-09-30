@@ -5,13 +5,20 @@
 }
 
 .alertContainer {
-  padding: 1rem;
-  border-radius: 1rem;
-  color: white;
+  position: relative;
+  padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
   width: 250px;
   cursor: pointer;
-  text-transform: lowercase;
+  transition: right 0.6s;
+  height: auto;
+  right: -300px;
+}
+
+.alertContainer.show {
+  right: 0px;
 }
 
 .alertContainer::first-letter {
@@ -19,9 +26,13 @@
 }
 
 .alertSuccess {
-  background-color: rgb(9, 207, 26);
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
 }
 
 .alertError {
-  background-color: #f33900;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
 }
