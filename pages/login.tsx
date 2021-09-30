@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BasicLayout } from "../components/BasicLayout";
 import styles from "../styles/pages/Login.module.css";
 import { Input } from "../components/Input";
@@ -13,6 +13,10 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    rootStore.appStore.cleanUp();
+  }, [rootStore.appStore]);
 
   const onPressLogin = async (e: React.SyntheticEvent) => {
     e.preventDefault();

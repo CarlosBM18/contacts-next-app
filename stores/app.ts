@@ -86,6 +86,13 @@ class AppStore {
     this.saveToken("", localStorage);
     this.rootStore.alertsStore.createSuccessAlert("Logged out correctly");
   };
+
+  cleanUp = () => {
+    this.setToken("");
+    this.setContacts([]);
+    this.selectedContact = null;
+    this.setContactHistory([]);
+  };
 }
 
 export default AppStore;
