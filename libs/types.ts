@@ -18,6 +18,7 @@ export type ButtonProps = {
   styleType: ButtonTypes;
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   loading?: boolean;
+  disabled?: boolean;
 };
 
 type ButtonTypes = "primary" | "danger";

@@ -14,3 +14,7 @@
 .buttonDanger {
   background-color: #f33900;
 }
+
+.buttonDisabled {
+  opacity: 0.5;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BasicLayout } from "../../../components/BasicLayout";
 import styles from "../../../styles/pages/Contact.module.css";
 import { Input } from "../../../components/Input";
@@ -37,21 +37,24 @@ const Contact = observer(() => {
 
   const onUpdate = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setUpdating(true);
-    try {
-      await rootStore.apiStore.updateContact(
-        contactId,
-        firstName,
-        lastName,
-        email,
-        phoneNumber
-      );
-      await rootStore.appStore.getContacts();
-      rootStore.alertsStore.createSuccessAlert("Updated correctly");
-    } catch (err: any) {
-      rootStore.alertsStore.handleErrorResponse(err.response);
+    if (someChange) {
+      setUpdating(true);
+      try {
+        await rootStore.apiStore.updateContact(
+          contactId,
+          firstName,
+          lastName,
+          email,
+          phoneNumber
+        );
+        await rootStore.appStore.getContacts();
+        await rootStore.appStore.getContact(Number(contactId));
+        rootStore.alertsStore.createSuccessAlert("Updated correctly");
+      } catch (err: any) {
+        rootStore.alertsStore.handleErrorResponse(err.response);
+      }
+      setUpdating(false);
     }
-    setUpdating(false);
   };
 
   const onRemove = async () => {
@@ -66,6 +69,26 @@ const Contact = observer(() => {
     }
     setRemoving(false);
   };
+
+  const someChange = useMemo(
+    () =>
+      !!(
+        contact?.email !== email ||
+        contact?.first_name !== firstName ||
+        contact?.last_name !== lastName ||
+        contact?.phone_number !== phoneNumber
+      ),
+    [
+      contact?.email,
+      contact?.first_name,
+      contact?.last_name,
+      contact?.phone_number,
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+    ]
+  );
 
   return (
     <BasicLayout title="Contact">
@@ -85,6 +108,7 @@ const Contact = observer(() => {
               styleType="primary"
               type="submit"
               loading={updating}
+              disabled={!someChange}
             />
           </div>
           <div className={styles.buttonContainer}>

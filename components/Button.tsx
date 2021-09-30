@@ -9,11 +9,12 @@ export const Button = ({
   type,
   title,
   loading,
+  disabled,
 }: ButtonProps) => {
   function buttonType() {
     switch (styleType) {
       case "primary":
-        return styles.button;
+        return `${styles.button} ${disabled ? styles.buttonDisabled : null}`;
       case "danger":
         return `${styles.button} ${styles.buttonDanger}`;
       default:
@@ -22,7 +23,13 @@ export const Button = ({
   }
 
   return (
-    <button className={buttonType()} onClick={onClick} type={type}>
+    <button
+      className={buttonType()}
+      onClick={() => {
+        !disabled && onClick?.();
+      }}
+      type={type}
+    >
       {loading ? <Spinner /> : title}
     </button>
   );
