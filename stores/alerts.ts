@@ -16,8 +16,8 @@ class AlertsStore {
     this.alerts.push(alert);
   };
 
-  removeAlert = (id: number) => {
-    this.alerts = this.alerts.filter((alert) => alert.id !== id);
+  removeAlert = (alert: AlertObject) => {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
   };
 
   handleErrorResponse = (response: any) => {

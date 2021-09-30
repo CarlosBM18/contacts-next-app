@@ -42,7 +42,11 @@ const Alert = ({ data }: AlertElementProps) => {
     setTimeout(() => {
       removeAlert();
     }, 6000);
-  }, [data.id, ref, removeAlert, rootStore.alertsStore]);
+
+    return () => {
+      rootStore.alertsStore.removeAlert(data);
+    };
+  }, [data, data.id, ref, removeAlert, rootStore.alertsStore]);
 
   const getAlertStyle = () => {
     switch (data.status) {
