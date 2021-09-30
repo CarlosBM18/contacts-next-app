@@ -14,6 +14,11 @@
   min-height: 10vh;
 }
 
+.createContactButtonSubContainer {
+  display: flex;
+  flex: 1;
+}
+
 .contactElementContainer {
   display: flex;
   flex: 1;
@@ -31,8 +36,4 @@
 .name {
   font-size: 1rem;
   font-weight: 800;
-}
-
-.newContactButton  {
-  background-color: #0070f3;
 }

@@ -1,3 +1,5 @@
+import { ButtonHTMLAttributes } from "react";
+
 export type BasicLayoutProps = {
   title: string;
   children: JSX.Element;
@@ -12,8 +14,10 @@ export type InputProps = {
 
 export type ButtonProps = {
   title: string;
-  onClick: () => void;
-  type: ButtonTypes;
+  onClick?: () => void;
+  styleType: ButtonTypes;
+  type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+  loading?: boolean;
 };
 
 type ButtonTypes = "primary" | "danger";

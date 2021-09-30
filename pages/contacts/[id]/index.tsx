@@ -17,6 +17,8 @@ const Contact = observer(() => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [updating, setUpdating] = useState(false);
+  const [removing, setRemoving] = useState(false);
 
   useEffect(() => {
     if (contact === null && contactId) {
@@ -33,7 +35,9 @@ const Contact = observer(() => {
     }
   }, [contact]);
 
-  const onUpdate = async () => {
+  const onUpdate = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setUpdating(true);
     try {
       await rootStore.apiStore.updateContact(
         contactId,
@@ -47,54 +51,70 @@ const Contact = observer(() => {
     } catch (err: any) {
       rootStore.alertsStore.handleErrorResponse(err.response);
     }
+    setUpdating(false);
   };
 
-  const onDelete = async () => {
+  const onRemove = async () => {
+    setRemoving(true);
     try {
-      await rootStore.apiStore.deleteContact(contactId);
+      await rootStore.apiStore.removeContact(contactId);
       await rootStore.appStore.getContacts();
       rootStore.alertsStore.createSuccessAlert("Deleted correctly");
       router.back();
     } catch (err: any) {
       rootStore.alertsStore.handleErrorResponse(err.response);
     }
+    setRemoving(false);
   };
 
   return (
     <BasicLayout title="Contact">
       <div className={styles.content}>
-        <Input label="First name" value={firstName} setValue={setFirstName} />
-        <Input label="Last name" value={lastName} setValue={setLastName} />
-        <Input label="Email" value={email} setValue={setEmail} />
-        <Input
-          label="Phone number"
-          value={phoneNumber}
-          setValue={setPhoneNumber}
-        />
-        <div className={styles.buttonContainer}>
-          <Button title="Update" type="primary" onClick={onUpdate} />
-        </div>
-        <div className={styles.buttonContainer}>
-          <Button title="Delete" type="danger" onClick={onDelete} />
-        </div>
-        <div className={styles.textLinksContainers}>
-          <div className={styles.textLinkContainer}>
-            <TextLink
-              text="History"
-              onClick={() => {
-                router.push(`/contacts/${contactId}/history`);
-              }}
+        <form onSubmit={onUpdate}>
+          <Input label="First name" value={firstName} setValue={setFirstName} />
+          <Input label="Last name" value={lastName} setValue={setLastName} />
+          <Input label="Email" value={email} setValue={setEmail} />
+          <Input
+            label="Phone number"
+            value={phoneNumber}
+            setValue={setPhoneNumber}
+          />
+          <div className={styles.buttonContainer}>
+            <Button
+              title="Update"
+              styleType="primary"
+              type="submit"
+              loading={updating}
             />
           </div>
-          <div className={styles.textLinkContainer}>
-            <TextLink
-              text="Go back"
-              onClick={() => {
-                router.back();
-              }}
+          <div className={styles.buttonContainer}>
+            <Button
+              title="Delete"
+              styleType="danger"
+              onClick={onRemove}
+              loading={removing}
+              type="button"
             />
           </div>
-        </div>
+          <div className={styles.textLinksContainers}>
+            <div className={styles.textLinkContainer}>
+              <TextLink
+                text="Go back"
+                onClick={() => {
+                  router.back();
+                }}
+              />
+            </div>
+            <div className={styles.textLinkContainer}>
+              <TextLink
+                text="History"
+                onClick={() => {
+                  router.push(`/contacts/${contactId}/history`);
+                }}
+              />
+            </div>
+          </div>
+        </form>
       </div>
     </BasicLayout>
   );

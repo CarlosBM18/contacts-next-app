@@ -77,7 +77,7 @@ class ApiStore {
     return axios.patch(`${this.baseUrl}/contacts/${id}`, data, this.authHeader);
   };
 
-  deleteContact = async (id: string) => {
+  removeContact = async (id: string) => {
     return await axios.delete(
       `${this.baseUrl}/contacts/${id}`,
       this.authHeader

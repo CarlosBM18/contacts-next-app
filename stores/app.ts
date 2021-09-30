@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import router from "next/router";
 
 import { RootStore } from ".";
 import { ContactHistoryObject, ContactObject } from "../libs/types";
@@ -36,6 +37,8 @@ class AppStore {
       const contact = res.data as ContactObject;
       this.setSelectedContact(contact);
     } catch (err) {
+      this.rootStore.alertsStore.createErrorAlert("Can't show that contact");
+      router.replace("/");
       console.log({ err });
     }
   };
@@ -46,6 +49,8 @@ class AppStore {
       const contactHistory = res.data as ContactHistoryObject[];
       this.setContactHistory(contactHistory);
     } catch (err) {
+      this.rootStore.alertsStore.createErrorAlert("Can't show that histroy");
+      router.replace("/");
       console.log({ err });
     }
   };

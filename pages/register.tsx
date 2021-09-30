@@ -13,7 +13,8 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onPressRegister = async () => {
+  const onPressRegister = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
     setLoading(true);
     try {
       await rootStore.apiStore.createUser(email, password);
@@ -30,30 +31,31 @@ export default function Register() {
   return (
     <BasicLayout title="Register">
       <div className={styles.content}>
-        <Input label="Email" value={email} setValue={setEmail} />
-        <Input
-          label="Password"
-          value={password}
-          setValue={setPassword}
-          type="password"
-        />
-        <div className={styles.buttonContainer}>
-          <Button title="Register" type="primary" onClick={onPressRegister} />
-          {loading && (
-            <>
-              <br />
-              Loading...
-            </>
-          )}
-        </div>
-        <div className={styles.textLinkContainer}>
-          <TextLink
-            text="Or login"
-            onClick={() => {
-              router.push("/login");
-            }}
+        <form onSubmit={onPressRegister}>
+          <Input label="Email" value={email} setValue={setEmail} />
+          <Input
+            label="Password"
+            value={password}
+            setValue={setPassword}
+            type="password"
           />
-        </div>
+          <div className={styles.buttonContainer}>
+            <Button
+              title="Register"
+              styleType="primary"
+              type="submit"
+              loading={loading}
+            />
+          </div>
+          <div className={styles.textLinkContainer}>
+            <TextLink
+              text="Or login"
+              onClick={() => {
+                router.push("/login");
+              }}
+            />
+          </div>
+        </form>
       </div>
     </BasicLayout>
   );

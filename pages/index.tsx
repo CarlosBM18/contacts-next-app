@@ -3,7 +3,7 @@ import router from "next/router";
 import React, { useEffect } from "react";
 import { BasicLayout } from "../components/BasicLayout";
 import { Button } from "../components/Button";
-import { ContactObject, ContactElementProps } from "../libs/types";
+import { ContactElementProps } from "../libs/types";
 import { useStore } from "../stores";
 import styles from "../styles/pages/Index.module.css";
 
@@ -36,13 +36,15 @@ const index = observer(() => {
     <BasicLayout title="Contacts">
       <>
         <div className={styles.createContactButtonContainer}>
-          <Button
-            title="New contact"
-            onClick={() => {
-              router.push("/contacts/create");
-            }}
-            type="primary"
-          />
+          <div className={styles.createContactButtonSubContainer}>
+            <Button
+              title="New contact"
+              onClick={() => {
+                router.push("/contacts/create");
+              }}
+              styleType="primary"
+            />
+          </div>
         </div>
 
         <div className={styles.content}>
