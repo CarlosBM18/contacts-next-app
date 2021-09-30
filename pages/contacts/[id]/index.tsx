@@ -102,23 +102,25 @@ const Contact = observer(() => {
             value={phoneNumber}
             setValue={setPhoneNumber}
           />
-          <div className={styles.buttonContainer}>
-            <Button
-              title="Update"
-              styleType="primary"
-              type="submit"
-              loading={updating}
-              disabled={!someChange}
-            />
-          </div>
-          <div className={styles.buttonContainer}>
-            <Button
-              title="Delete"
-              styleType="danger"
-              onClick={onRemove}
-              loading={removing}
-              type="button"
-            />
+          <div className={styles.actionButtonsContainer}>
+            <div className={styles.buttonContainer}>
+              <Button
+                title="Update"
+                styleType="primary"
+                type="submit"
+                loading={updating}
+                disabled={!someChange}
+              />
+            </div>
+            <div className={styles.buttonContainer}>
+              <Button
+                title="Delete"
+                styleType="danger"
+                onClick={onRemove}
+                loading={removing}
+                type="button"
+              />
+            </div>
           </div>
           <div className={styles.textLinksContainers}>
             <div className={styles.textLinkContainer}>

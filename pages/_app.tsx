@@ -45,6 +45,13 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
     router.pathname,
   ]);
 
+  if (
+    (rootStore.appStore.loadingUser || !rootStore.appStore.isLogged) &&
+    !isAuthRoute(router.pathname)
+  ) {
+    return null;
+  }
+
   return (
     <>
       <AlertSystem />
