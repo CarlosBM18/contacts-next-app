@@ -29,7 +29,7 @@ const BasicLayout = observer(({ title, children }: BasicLayoutProps) => {
             <TextLink
               text="My account"
               onClick={() => {
-                router.push("my-account");
+                router.push("/my-account");
               }}
             />
           </div>
