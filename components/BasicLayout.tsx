@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import Head from "next/head";
+import router from "next/router";
 import { BasicLayoutProps } from "../libs/types";
 import { useStore } from "../stores";
 import styles from "../styles/components/BasicLayout.module.css";
@@ -23,6 +24,16 @@ const BasicLayout = observer(({ title, children }: BasicLayoutProps) => {
 
       <footer className={styles.footer}>
         <a>Creaded by CarlosBM</a>
+        {rootStore.appStore.isLogged && (
+          <div className={styles.logoutContainer}>
+            <TextLink
+              text="My account"
+              onClick={() => {
+                router.push("my-account");
+              }}
+            />
+          </div>
+        )}
         {rootStore.appStore.isLogged && (
           <div className={styles.logoutContainer}>
             <TextLink text="Logout" onClick={rootStore.appStore.logout} />
