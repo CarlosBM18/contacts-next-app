@@ -36,3 +36,10 @@
   background-color: #f8d7da;
   border-color: #f5c6cb;
 }
+
+@media screen and (max-width: 600px) {
+  .alertSystemContainer {
+    overflow-x: hidden;
+    right: 0;
+  }
+}
