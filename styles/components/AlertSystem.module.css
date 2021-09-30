@@ -19,9 +19,9 @@
 }
 
 .alertSuccess {
-  background-color: green;
+  background-color: rgb(9, 207, 26);
 }
 
 .alertError {
-  background-color: red;
+  background-color: #f33900;
 }

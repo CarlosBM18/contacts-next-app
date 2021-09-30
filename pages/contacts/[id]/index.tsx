@@ -7,7 +7,6 @@ import { TextLink } from "../../../components/TextLink";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../stores";
 import { useRouter } from "next/router";
-import { AlertObject } from "../../../libs/types";
 
 const Contact = observer(() => {
   const router = useRouter();
