@@ -62,11 +62,11 @@ const Contact = observer(() => {
   return (
     <BasicLayout title="Contact">
       <div className={styles.content}>
-        <Input label="First Name" value={firstName} setValue={setFirstName} />
-        <Input label="Last Name" value={lastName} setValue={setLastName} />
+        <Input label="First name" value={firstName} setValue={setFirstName} />
+        <Input label="Last name" value={lastName} setValue={setLastName} />
         <Input label="Email" value={email} setValue={setEmail} />
         <Input
-          label="Phone Number"
+          label="Phone number"
           value={phoneNumber}
           setValue={setPhoneNumber}
         />
