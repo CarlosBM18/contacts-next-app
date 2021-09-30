@@ -7,6 +7,7 @@ import { TextLink } from "../../../components/TextLink";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../../stores";
 import { useRouter } from "next/router";
+import { AlertObject } from "../../../libs/types";
 
 const Contact = observer(() => {
   const router = useRouter();
@@ -43,9 +44,9 @@ const Contact = observer(() => {
         phoneNumber
       );
       await rootStore.appStore.getContacts();
-      router.back();
-    } catch (err) {
-      console.log({ err });
+      rootStore.alertsStore.createSuccessAlert("Updated correctly");
+    } catch (err: any) {
+      rootStore.alertsStore.handleErrorResponse(err.response);
     }
   };
 
@@ -53,9 +54,10 @@ const Contact = observer(() => {
     try {
       await rootStore.apiStore.deleteContact(contactId);
       await rootStore.appStore.getContacts();
+      rootStore.alertsStore.createSuccessAlert("Deleted correctly");
       router.back();
-    } catch (err) {
-      console.log({ err });
+    } catch (err: any) {
+      rootStore.alertsStore.handleErrorResponse(err.response);
     }
   };
 

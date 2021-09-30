@@ -5,6 +5,7 @@ import { useStore } from "../stores";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { isAuthRoute } from "../libs/utils";
+import { AlertSystem } from "../components/AlertSystem";
 
 const MyApp = observer(({ Component, pageProps }: AppProps) => {
   const { rootStore } = useStore();
@@ -44,7 +45,12 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
     router.pathname,
   ]);
 
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <AlertSystem />
+      <Component {...pageProps} />
+    </>
+  );
 });
 
 export default MyApp;

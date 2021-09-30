@@ -59,7 +59,7 @@ class ApiStore {
     return await axios.post(`${this.baseUrl}/contacts`, data, this.authHeader);
   };
 
-  updateContact = async (
+  updateContact = (
     id: string,
     first_name: string,
     last_name: string,
@@ -74,11 +74,7 @@ class ApiStore {
         phone_number,
       },
     };
-    return await axios.patch(
-      `${this.baseUrl}/contacts/${id}`,
-      data,
-      this.authHeader
-    );
+    return axios.patch(`${this.baseUrl}/contacts/${id}`, data, this.authHeader);
   };
 
   deleteContact = async (id: string) => {

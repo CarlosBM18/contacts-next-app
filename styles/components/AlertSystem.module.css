@@ -1,0 +1,27 @@
+.alertSystemContainer {
+  position: absolute;
+  right: 2rem;
+  top: 10vh;
+}
+
+.alertContainer {
+  padding: 1rem;
+  border-radius: 1rem;
+  color: white;
+  margin-bottom: 1rem;
+  width: 250px;
+  cursor: pointer;
+  text-transform: lowercase;
+}
+
+.alertContainer::first-letter {
+  text-transform: uppercase;
+}
+
+.alertSuccess {
+  background-color: green;
+}
+
+.alertError {
+  background-color: red;
+}

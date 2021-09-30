@@ -18,11 +18,9 @@ export default function Login() {
     try {
       const res: any = await rootStore.apiStore.login(email, password);
       rootStore.appStore.saveToken(res.data.token, localStorage);
-      if (res?.data?.token.length) {
-        router.replace("/");
-      }
-    } catch (err) {
-      console.log({ err });
+      rootStore.alertsStore.createSuccessAlert("Logged correctly");
+    } catch (err: any) {
+      rootStore.alertsStore.handleErrorResponse(err.response);
     }
     setLoading(false);
   };

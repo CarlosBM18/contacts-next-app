@@ -17,11 +17,14 @@ export default function Register() {
     setLoading(true);
     try {
       await rootStore.apiStore.createUser(email, password);
+      rootStore.alertsStore.createSuccessAlert(
+        "User created correctly. Please login"
+      );
       router.replace("/login");
-    } catch (err) {
-      setLoading(false);
-      console.log({ err });
+    } catch (err: any) {
+      rootStore.alertsStore.handleErrorResponse(err.response);
     }
+    setLoading(false);
   };
 
   return (

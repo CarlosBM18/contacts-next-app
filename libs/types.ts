@@ -42,10 +42,20 @@ export interface ContactHistoryObject {
 
 export type ContactHistoryStates = "created" | "updated";
 
-export interface ContactElementProps {
+export type ContactElementProps = {
   data: ContactObject;
+};
+
+export type ContactHistoryElementProps = {
+  data: ContactHistoryObject;
+};
+
+export interface AlertObject {
+  id: number;
+  status: "success" | "error";
+  message: string;
 }
 
-export interface ContactHistoryElementProps {
-  data: ContactHistoryObject;
-}
+export type AlertElementProps = {
+  data: AlertObject;
+};

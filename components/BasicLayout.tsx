@@ -8,10 +8,6 @@ import { TextLink } from "./TextLink";
 const BasicLayout = observer(({ title, children }: BasicLayoutProps) => {
   const { rootStore } = useStore();
 
-  const onLogout = () => {
-    rootStore.appStore.saveToken("", localStorage);
-  };
-
   return (
     <div className={styles.container}>
       <Head>
@@ -27,9 +23,9 @@ const BasicLayout = observer(({ title, children }: BasicLayoutProps) => {
 
       <footer className={styles.footer}>
         <a>Creaded by CarlosBM</a>
-        {!!rootStore.appStore.token?.length && (
+        {rootStore.appStore.isLogged && (
           <div className={styles.logoutContainer}>
-            <TextLink text="Logout" onClick={onLogout} />
+            <TextLink text="Logout" onClick={rootStore.appStore.logout} />
           </div>
         )}
       </footer>

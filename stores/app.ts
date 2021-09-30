@@ -73,6 +73,11 @@ class AppStore {
   get isLogged() {
     return !this.loadingUser && this.token?.length;
   }
+
+  logout = () => {
+    this.saveToken("", localStorage);
+    this.rootStore.alertsStore.createSuccessAlert("Logged out correctly");
+  };
 }
 
 export default AppStore;
