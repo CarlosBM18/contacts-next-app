@@ -22,7 +22,12 @@ class AppStore {
     this.setToken(token);
   };
 
-  saveUserInfo = (user: UserObject) => {
+  saveUserInfo = (user: UserObject, localStorage: Storage) => {
+    localStorage.setItem("user_id", String(user.id));
+    this.setUser(user);
+  };
+
+  setUser = (user: UserObject) => {
     this.user = user;
   };
 

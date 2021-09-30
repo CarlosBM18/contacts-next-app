@@ -24,7 +24,8 @@ export default function Login() {
     setLoading(true);
     try {
       const res: any = await rootStore.apiStore.login(email, password);
-      rootStore.appStore.saveUserInfo(res.data.user as UserObject);
+      const user = res.data.user as UserObject;
+      rootStore.appStore.saveUserInfo(user, localStorage);
       rootStore.appStore.saveToken(res.data.token, localStorage);
       rootStore.alertsStore.createSuccessAlert("Logged correctly");
     } catch (err: any) {

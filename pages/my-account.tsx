@@ -13,18 +13,19 @@ export default function MyAccount() {
   const [deleting, setDeleting] = useState(false);
 
   const onDelete = async () => {
-    setDeleting(true);
     try {
+      setDeleting(true);
       const userId = rootStore.appStore.user?.id;
       if (userId) {
         await rootStore.apiStore.deleteUser(userId);
         rootStore.alertsStore.createSuccessAlert("User deleted correctly");
+        setDeleting(false);
         rootStore.appStore.logout();
       }
     } catch (err: any) {
+      setDeleting(false);
       rootStore.alertsStore.handleErrorResponse(err.response);
     }
-    setDeleting(false);
   };
 
   return (
@@ -34,7 +35,6 @@ export default function MyAccount() {
           <Button
             title="Delete account"
             styleType="danger"
-            type="submit"
             loading={deleting}
             onClick={onDelete}
           />

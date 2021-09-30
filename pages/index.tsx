@@ -12,10 +12,10 @@ const index = observer(() => {
 
   useEffect(() => {
     const getInfo = () => {
-      !rootStore.appStore.loadingUser && rootStore.appStore.getContacts();
+      rootStore.appStore.isLogged && rootStore.appStore.getContacts();
     };
     getInfo();
-  }, [rootStore.appStore, rootStore.appStore.loadingUser]);
+  }, [rootStore.appStore, rootStore.appStore.isLogged]);
 
   const ContactElement = ({ data }: ContactElementProps) => {
     const onSelectContact = () => {

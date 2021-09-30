@@ -17,7 +17,15 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
       const token = localStorage.getItem("token") || "";
       rootStore.appStore.setToken(token);
     };
+    const getUserInfo = async () => {
+      const userId = localStorage.getItem("user_id") || "";
+      const user = {
+        id: Number(userId),
+      };
+      rootStore.appStore.setUser(user);
+    };
     getToken();
+    getUserInfo();
   }, [rootStore.appStore]);
 
   // Redirect user to login if not logged
