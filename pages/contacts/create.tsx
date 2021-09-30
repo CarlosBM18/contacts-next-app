@@ -15,7 +15,8 @@ export default function CreateContact() {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  const onCreateContact = async () => {
+  const onCreateContact = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
     try {
       await rootStore.apiStore.createContact(
         firstName,
@@ -34,25 +35,27 @@ export default function CreateContact() {
   return (
     <BasicLayout title="Contact">
       <div className={styles.content}>
-        <Input label="First name" value={firstName} setValue={setFirstName} />
-        <Input label="Last name" value={lastName} setValue={setLastName} />
-        <Input label="Email" value={email} setValue={setEmail} />
-        <Input
-          label="Phone number"
-          value={phoneNumber}
-          setValue={setPhoneNumber}
-        />
-        <div className={styles.buttonContainer}>
-          <Button title="Create" type="primary" onClick={onCreateContact} />
-        </div>
-        <div className={styles.textLinkContainer}>
-          <TextLink
-            text="Go back"
-            onClick={() => {
-              router.back();
-            }}
+        <form onSubmit={onCreateContact}>
+          <Input label="First name" value={firstName} setValue={setFirstName} />
+          <Input label="Last name" value={lastName} setValue={setLastName} />
+          <Input label="Email" value={email} setValue={setEmail} />
+          <Input
+            label="Phone number"
+            value={phoneNumber}
+            setValue={setPhoneNumber}
           />
-        </div>
+          <div className={styles.buttonContainer}>
+            <Button title="Create" styleType="primary" type="submit" />
+          </div>
+          <div className={styles.textLinkContainer}>
+            <TextLink
+              text="Go back"
+              onClick={() => {
+                router.back();
+              }}
+            />
+          </div>
+        </form>
       </div>
     </BasicLayout>
   );
