@@ -26,18 +26,26 @@ const Alert = ({ data }: AlertElementProps) => {
   const { rootStore } = useStore();
   const [visible, setVisible] = useState(true);
 
-  const ref = useRef<HTMLDivElement>(null);
+  const alertRef = useRef<HTMLDivElement>(null);
+  const componentRef = useRef(true);
+
+  useEffect(() => {
+    componentRef.current = true;
+    () => {
+      componentRef.current = false;
+    };
+  }, []);
 
   const removeAlert = useCallback(() => {
-    ref.current?.classList.toggle(styles.show);
+    alertRef.current?.classList.toggle(styles.show);
     setTimeout(() => {
-      setVisible(false);
+      componentRef.current && setVisible(false);
     }, 600);
-  }, [ref]);
+  }, [alertRef]);
 
   useEffect(() => {
     setTimeout(() => {
-      ref.current?.classList.toggle(styles.show);
+      alertRef.current?.classList.toggle(styles.show);
     }, 100);
     setTimeout(() => {
       removeAlert();
@@ -46,7 +54,7 @@ const Alert = ({ data }: AlertElementProps) => {
     return () => {
       rootStore.alertsStore.removeAlert(data);
     };
-  }, [data, data.id, ref, removeAlert, rootStore.alertsStore]);
+  }, [data, data.id, alertRef, removeAlert, rootStore.alertsStore]);
 
   const getAlertStyle = () => {
     switch (data.status) {
@@ -61,7 +69,7 @@ const Alert = ({ data }: AlertElementProps) => {
     <>
       {visible && (
         <div
-          ref={ref}
+          ref={alertRef}
           className={`${styles.alertContainer} ${getAlertStyle()}`}
           onClick={removeAlert}
         >

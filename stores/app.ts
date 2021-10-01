@@ -17,7 +17,35 @@ class AppStore {
     this.rootStore = rootStore;
   }
 
-  saveToken = async (token: string, localStorage: Storage) => {
+  getToken = (localStorage: Storage) => {
+    const token = localStorage.getItem("token") || "";
+    this.setToken(token);
+  };
+
+  getUserInfo = async (localStorage: Storage) => {
+    try {
+      const userId = Number(localStorage.getItem("user_id") || "");
+      if (userId) {
+        const userResponse = await this.rootStore.apiStore.getUser(userId);
+        const user = userResponse.data as UserObject;
+        this.setUser(user);
+      }
+    } catch (err) {
+      this.rootStore.alertsStore.createErrorAlert("Can't get user info");
+    }
+  };
+
+  saveToken = (token: string, localStorage: Storage) => {
+    localStorage.setItem("token", token);
+    this.setToken(token);
+  };
+
+  saveUserId = (id: string, localStorage: Storage) => {
+    localStorage.setItem("user_id", id);
+    this.user = null;
+  };
+
+  saveUidToken = (token: string, localStorage: Storage) => {
     localStorage.setItem("token", token);
     this.setToken(token);
   };
@@ -27,7 +55,7 @@ class AppStore {
     this.setUser(user);
   };
 
-  setUser = (user: UserObject) => {
+  setUser = (user: UserObject | null) => {
     this.user = user;
   };
 
@@ -89,6 +117,7 @@ class AppStore {
 
   logout = () => {
     this.saveToken("", localStorage);
+    this.saveUserId("", localStorage);
     this.rootStore.alertsStore.createSuccessAlert("Logged out correctly");
   };
 
@@ -97,6 +126,7 @@ class AppStore {
     this.setContacts([]);
     this.selectedContact = null;
     this.setContactHistory([]);
+    this.setUser(null);
   };
 }
 

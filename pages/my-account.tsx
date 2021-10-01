@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { BasicLayout } from "../components/BasicLayout";
-import styles from "../styles/pages/Login.module.css";
-import { Input } from "../components/Input";
+import styles from "../styles/pages/MyAccount.module.css";
 import { Button } from "../components/Button";
 import { TextLink } from "../components/TextLink";
 import router from "next/router";
 import { useStore } from "../stores";
+import { observer } from "mobx-react-lite";
 
-export default function MyAccount() {
+const MyAccount = observer(() => {
   const { rootStore } = useStore();
 
   const [deleting, setDeleting] = useState(false);
@@ -31,6 +31,7 @@ export default function MyAccount() {
   return (
     <BasicLayout title="My Account">
       <div className={styles.content}>
+        Email: {rootStore.appStore.user?.email}
         <div className={styles.buttonContainer}>
           <Button
             title="Delete account"
@@ -50,4 +51,6 @@ export default function MyAccount() {
       </div>
     </BasicLayout>
   );
-}
+});
+
+export default MyAccount;

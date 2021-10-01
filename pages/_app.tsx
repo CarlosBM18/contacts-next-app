@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { isAuthRoute } from "../libs/utils";
 import { AlertSystem } from "../components/AlertSystem";
+import { UserObject } from "../libs/types";
 
 const MyApp = observer(({ Component, pageProps }: AppProps) => {
   const { rootStore } = useStore();
@@ -13,19 +14,8 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
 
   // Look for the token
   useEffect(() => {
-    const getToken = async () => {
-      const token = localStorage.getItem("token") || "";
-      rootStore.appStore.setToken(token);
-    };
-    const getUserInfo = async () => {
-      const userId = localStorage.getItem("user_id") || "";
-      const user = {
-        id: Number(userId),
-      };
-      rootStore.appStore.setUser(user);
-    };
-    getToken();
-    getUserInfo();
+    rootStore.appStore.getToken(localStorage);
+    rootStore.appStore.getUserInfo(localStorage);
   }, [rootStore.appStore]);
 
   // Redirect user to login if not logged

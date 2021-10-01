@@ -67,4 +67,5 @@ export type AlertElementProps = {
 
 export interface UserObject {
   id: number;
+  email: string;
 }
