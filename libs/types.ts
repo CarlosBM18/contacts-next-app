@@ -45,7 +45,10 @@ export interface ContactHistoryObject {
   state: ContactHistoryStates;
 }
 
-export type ContactHistoryStates = "created" | "updated";
+export enum ContactHistoryStates {
+  CREATED = "created",
+  UPDATED = "updated",
+}
 
 export type ContactElementProps = {
   data: ContactObject;
@@ -57,8 +60,13 @@ export type ContactHistoryElementProps = {
 
 export interface AlertObject {
   id: number;
-  status: "success" | "error";
+  status: AlertStatus;
   message: string;
+}
+
+export enum AlertStatus {
+  SUCCESS = "success",
+  ERROR = "error",
 }
 
 export type AlertElementProps = {

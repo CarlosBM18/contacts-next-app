@@ -1,7 +1,9 @@
 import { makeAutoObservable } from "mobx";
 
 import { RootStore } from ".";
-import { AlertObject } from "../libs/types";
+import { AlertObject, AlertStatus } from "../libs/types";
+
+const UNKNOWN_SERVER_ERROR = "Unknown server error";
 
 class AlertsStore {
   rootStore;
@@ -22,27 +24,23 @@ class AlertsStore {
 
   handleErrorResponse = (response: any) => {
     const errors = response?.data?.errors;
-    if (errors) {
+    try {
       const errorsArray = Object.keys(errors);
-      if (errorsArray.length) {
-        errorsArray.forEach((error: any) => {
-          const errorKey = errors[error];
-          if (errorKey) {
-            errorKey.forEach((errorText: string) => {
-              this.createErrorAlert(`${error.replace("_", " ")} ${errorText}`);
-            });
-          }
+      errorsArray.forEach((error: any) => {
+        const errorKey = errors[error];
+        errorKey.forEach((errorText: string) => {
+          this.createErrorAlert(`${error.replace("_", " ")} ${errorText}`);
         });
-      }
-    } else {
-      this.createErrorAlert("Server error");
+      });
+    } catch (err) {
+      this.createErrorAlert(UNKNOWN_SERVER_ERROR);
     }
   };
 
   createErrorAlert = (message: string) => {
     const alert: AlertObject = {
       id: this.alerts.length,
-      status: "error",
+      status: AlertStatus.ERROR,
       message,
     };
     this.addAlert(alert);
@@ -51,7 +49,7 @@ class AlertsStore {
   createSuccessAlert = (message: string) => {
     const alert: AlertObject = {
       id: this.alerts.length,
-      status: "success",
+      status: AlertStatus.SUCCESS,
       message,
     };
     this.addAlert(alert);

@@ -6,9 +6,13 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { AlertElementProps } from "../libs/types";
+import { AlertElementProps, AlertStatus } from "../libs/types";
 import { useStore } from "../stores";
 import styles from "../styles/components/AlertSystem.module.css";
+
+const TIME_TO_SHOW_ALERT = 100;
+const TIME_TO_REMOVE_ALERT = 6000;
+const TIME_TO_WAIT_ANIMATION_TO_FINISH = 600;
 
 export const AlertSystem = observer(() => {
   const { rootStore } = useStore();
@@ -29,6 +33,17 @@ const Alert = ({ data }: AlertElementProps) => {
   const alertRef = useRef<HTMLDivElement>(null);
   const componentRef = useRef(true);
 
+  const toggleAlert = () => {
+    alertRef.current?.classList.toggle(styles.show);
+  };
+
+  const removeAlert = useCallback(() => {
+    toggleAlert();
+    setTimeout(() => {
+      componentRef.current && setVisible(false);
+    }, TIME_TO_WAIT_ANIMATION_TO_FINISH);
+  }, []);
+
   useEffect(() => {
     componentRef.current = true;
     () => {
@@ -36,20 +51,13 @@ const Alert = ({ data }: AlertElementProps) => {
     };
   }, []);
 
-  const removeAlert = useCallback(() => {
-    alertRef.current?.classList.toggle(styles.show);
-    setTimeout(() => {
-      componentRef.current && setVisible(false);
-    }, 600);
-  }, [alertRef]);
-
   useEffect(() => {
     setTimeout(() => {
       alertRef.current?.classList.toggle(styles.show);
-    }, 100);
+    }, TIME_TO_SHOW_ALERT);
     setTimeout(() => {
       removeAlert();
-    }, 6000);
+    }, TIME_TO_REMOVE_ALERT);
 
     return () => {
       rootStore.alertsStore.removeAlert(data);
@@ -58,9 +66,9 @@ const Alert = ({ data }: AlertElementProps) => {
 
   const getAlertStyle = () => {
     switch (data.status) {
-      case "success":
+      case AlertStatus.SUCCESS:
         return styles.alertSuccess;
-      case "error":
+      case AlertStatus.ERROR:
         return styles.alertError;
     }
   };

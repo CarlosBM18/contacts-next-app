@@ -6,13 +6,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { isAuthRoute } from "../libs/utils";
 import { AlertSystem } from "../components/AlertSystem";
-import { UserObject } from "../libs/types";
+import { Spinner } from "../components/Spinner";
 
 const MyApp = observer(({ Component, pageProps }: AppProps) => {
   const { rootStore } = useStore();
   const router = useRouter();
 
-  // Look for the token
+  // Look for the token and user info
   useEffect(() => {
     rootStore.appStore.getToken(localStorage);
     rootStore.appStore.getUserInfo(localStorage);
@@ -43,11 +43,12 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
     router.pathname,
   ]);
 
+  // Return spinner when loading
   if (
     (rootStore.appStore.loadingUser || !rootStore.appStore.isLogged) &&
     !isAuthRoute(router.pathname)
   ) {
-    return null;
+    return <Spinner />;
   }
 
   return (

@@ -28,9 +28,9 @@ const History = observer(() => {
 
   const getStyleFromState = (state: ContactHistoryStates) => {
     switch (state) {
-      case "created":
+      case ContactHistoryStates.CREATED:
         return styles.stateCreated;
-      case "updated":
+      case ContactHistoryStates.UPDATED:
         return styles.stateUpdated;
     }
   };
