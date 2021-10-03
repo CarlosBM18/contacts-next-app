@@ -7,7 +7,7 @@
 - [mobx-react-lite](https://github.com/mobxjs/mobx/tree/main/packages/mobx-react-lite)
 - [jest](https://jestjs.io/) for testing
 
-## Live running demo
+## Live demo
 
 [https://contacts-next-app.vercel.app/](https://contacts-next-app.vercel.app/)
 
