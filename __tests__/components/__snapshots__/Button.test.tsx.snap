@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Button danger correctly 1`] = `
+<button
+  className="button buttonDanger"
+  onClick={[Function]}
+  type="button"
+>
+  <div
+    className="spinner"
+  />
+</button>
+`;
+
+exports[`renders Button primary correctly 1`] = `
+<button
+  className="button null"
+  onClick={[Function]}
+  type="submit"
+>
+  TEST
+</button>
+`;

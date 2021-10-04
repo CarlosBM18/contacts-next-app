@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders TextLink correctly 1`] = `
+<div
+  className="textLink"
+  onClick={[Function]}
+>
+  Test
+</div>
+`;

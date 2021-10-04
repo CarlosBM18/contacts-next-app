@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Input normal correctly 1`] = `
+<div
+  className="content"
+>
+  <div
+    className="label"
+  >
+    Test
+  </div>
+  <input
+    className="input"
+    onChange={[Function]}
+    value="Test"
+  />
+</div>
+`;
+
+exports[`renders Input password correctly 1`] = `
+<div
+  className="content"
+>
+  <div
+    className="label"
+  >
+    Password
+  </div>
+  <input
+    className="input"
+    onChange={[Function]}
+    type="password"
+    value="Test"
+  />
+</div>
+`;
