@@ -3,6 +3,7 @@ import React, {
   createRef,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -64,21 +65,21 @@ const Alert = ({ data }: AlertElementProps) => {
     };
   }, [data, data.id, alertRef, removeAlert, rootStore.alertsStore]);
 
-  const getAlertStyle = () => {
+  const alertStyle = useMemo(() => {
     switch (data.status) {
       case AlertStatus.SUCCESS:
         return styles.alertSuccess;
       case AlertStatus.ERROR:
         return styles.alertError;
     }
-  };
+  }, [data.status]);
 
   return (
     <>
       {visible && (
         <div
           ref={alertRef}
-          className={`${styles.alertContainer} ${getAlertStyle()}`}
+          className={`${styles.alertContainer} ${alertStyle}`}
           onClick={removeAlert}
         >
           {data.message}
