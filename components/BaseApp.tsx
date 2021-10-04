@@ -10,6 +10,10 @@ export const BaseApp = observer(({ Component, pageProps }: AppProps) => {
   const { rootStore } = useStore();
   const router = useRouter();
 
+  useEffect(() => {
+    rootStore.appStore.loadInfo(localStorage);
+  }, [rootStore.appStore]);
+
   // Redirect user to login if not logged
   useEffect(() => {
     if (!rootStore.appStore.isLogged && !isAuthRoute(router.pathname)) {

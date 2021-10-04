@@ -35,6 +35,11 @@ class AppStore {
     }
   };
 
+  loadInfo = (localStorage: Storage) => {
+    this.getToken(localStorage);
+    this.getUserInfo(localStorage);
+  };
+
   saveToken = (token: string, localStorage: Storage) => {
     localStorage.setItem("token", token);
     this.setToken(token);
